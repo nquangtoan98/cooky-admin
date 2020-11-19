@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { BaseCondition } from 'app/common';
+import { Recipe } from './Recipe.model';
+import { RecipesService} from './recipes-service.service';
 
 @Component({
   selector: 'app-recipes',
@@ -7,9 +10,59 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RecipesComponent implements OnInit {
 
-  constructor() { }
+  recipe: Recipe;
+  recipes: Recipe[] = new Array<Recipe>()
+  page = 1;
+  pageSize: number;
+  totalRecords: number;
+  condition: BaseCondition<Recipe> = new BaseCondition<Recipe>();
+  constructor(
+    private recipeService: RecipesService
+  ) { }
 
   ngOnInit(): void {
+    this.loadAll();
   }
+  loadAll(condi?: BaseCondition<Recipe>) {
+    this.recipeService.getAllRecipesWithPaging(condi).subscribe((result) => {
+      if (result.isSuccess) {
+        this.recipes = result.itemList;
+        this.totalRecords = result.totalRows;
+        console.log(this.recipes);
+        if (condi != undefined) {
+          this.pageSize = condi.PageSize;
+          this.page = condi.PageIndex;
+          console.log(this.page);
+          
+        }
+        else {
+          this.pageSize = 5;
+          this.page = 1;
+        }
+      }
+      else {
+        alert("Lỗi: " + result.errorMessage);
+      }
 
+    }, (error) => {
+      setTimeout(() => {
+        alert("Lỗi: " + JSON.stringify(error));
+      }, 5000);
+    }, () => {
+    });
+    
+    
+  }
+  loadPages(page: number, pageSize: number) {
+    debugger
+    var condition: BaseCondition<Recipe> = new BaseCondition<Recipe>();
+    if (this.condition.FilterRuleList) {
+      condition.FilterRuleList = this.condition.FilterRuleList;
+    }
+    condition.PageIndex = page;
+    condition.PageSize = pageSize || 5;
+    
+    this.loadAll(condition);
+    console.log(condition);
+  }
 }

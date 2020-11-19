@@ -16,6 +16,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { RecipesComponent } from './recipes/recipes.component';
 import { TipsComponent } from './tips/tips.component';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [
@@ -25,6 +26,8 @@ import { TipsComponent } from './tips/tips.component';
     HttpClientModule,
     ComponentsModule,
     RouterModule,
+    MatIconModule,
+
     AppRoutingModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
