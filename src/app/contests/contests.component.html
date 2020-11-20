@@ -7,7 +7,7 @@
                         <h3 class="card-title ">Contest</h3>
                         <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
                         <button class="btn btn-primary btn-sm" style="float: right; margin-top: 4px; font-size: 13px;"
-                            (click)="openDialog()">
+                            routerLink="/create-contest">
                             <span class="fa fa-plus"></span>
                             <span>
                                 Add Contest
@@ -25,143 +25,43 @@
                                     <th style="text-align: center;">
                                         Name
                                     </th>
+                                    <th style="text-align: center; max-width: 300px;">
+                                        Content
+                                    </th>
+                                    <th style="text-align: center;">
+                                        Start date
+                                    </th>
+                                    <th style="text-align: center;">
+                                        End date
+                                    </th>
                                     <th style="text-align: center;">
                                         Action
                                     </th>
-                                    <!-- <th>
-                                        City
-                                    </th>
-                                    <th>
-                                        Salary
-                                    </th> -->
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let item of contest">
                                         <td style="text-align: center;">
-                                            1
+                                            {{item.id}}
                                         </td>
                                         <td style="text-align: center;">
-                                            Dakota Rice
+                                            {{item.name}}
                                         </td>
                                         <td style="text-align: center;">
-                                            <button class="btn btn-primary fa fa-eye"
-                                            routerLinkActive="router-link-active" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-edit" replaceUrl="true"
-                                                queryParamsHandling="merge" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-trash" type="submit" style="font-size: 14px;"></button>
-                                        </td>
-                                        <!-- <td>
-                                            Oud-Turnhout
-                                        </td>
-                                        <td class="text-primary">
-                                            $36,738
-                                        </td> -->
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            2
+                                            {{item.contentContest}}
                                         </td>
                                         <td style="text-align: center;">
-                                            Minerva Hooper
+                                            {{stringToDate(item.startDate)}}
+                                        </td>
+                                        <td style="text-align: center;">
+                                            {{stringToDate(item.endDate)}}
                                         </td>
                                         <td style="text-align: center;">
                                             <button class="btn btn-primary fa fa-eye"
                                             routerLinkActive="router-link-active" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-edit" replaceUrl="true"
+                                            <button [routerLink]="['/edit-contest', item.id]" class="btn btn-primary fa fa-edit" replaceUrl="true"
                                                 queryParamsHandling="merge" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-trash" type="submit" style="font-size: 14px;"></button>
+                                            <button class="btn btn-primary fa fa-trash" type="submit" style="font-size: 14px;" (click)="onDelete(item.id)"></button>
                                         </td>
-                                        <!-- <td>
-                                            Sinaai-Waas
-                                        </td>
-                                        <td class="text-primary">
-                                            $23,789
-                                        </td> -->
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            3
-                                        </td>
-                                        <td style="text-align: center;">
-                                            Sage Rodriguez
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <button class="btn btn-primary fa fa-eye"
-                                            routerLinkActive="router-link-active" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-edit" replaceUrl="true"
-                                                queryParamsHandling="merge" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-trash" type="submit" style="font-size: 14px;"></button>
-                                        </td>
-                                        <!-- <td>
-                                            Baileux
-                                        </td>
-                                        <td class="text-primary">
-                                            $56,142
-                                        </td> -->
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            4
-                                        </td>
-                                        <td style="text-align: center;">
-                                            Philip Chaney
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <button class="btn btn-primary fa fa-eye"
-                                            routerLinkActive="router-link-active" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-edit" replaceUrl="true"
-                                                queryParamsHandling="merge" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-trash" type="submit" style="font-size: 14px;"></button>
-                                        </td>
-                                        <!-- <td>
-                                            Overland Park
-                                        </td>
-                                        <td class="text-primary">
-                                            $38,735
-                                        </td> -->
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            5
-                                        </td>
-                                        <td style="text-align: center;">
-                                            Doris Greene
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <button class="btn btn-primary fa fa-eye"
-                                                routerLinkActive="router-link-active" style="font-size: 14px;"></button>
-
-                                            <button class="btn btn-primary fa fa-edit" replaceUrl="true"
-                                                queryParamsHandling="merge" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-trash" type="submit" style="font-size: 14px;"></button>
-                                        </td>
-                                        <!-- <td>
-                                            Feldkirchen in Kärnten
-                                        </td>
-                                        <td class="text-primary">
-                                            $63,542
-                                        </td> -->
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            6
-                                        </td>
-                                        <td style="text-align: center;">
-                                            Mason Porter
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <button class="btn btn-primary fa fa-eye"
-                                            routerLinkActive="router-link-active" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-edit" replaceUrl="true"
-                                                queryParamsHandling="merge" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-trash" type="submit" style="font-size: 14px;"></button>
-                                        </td>
-                                        <!-- <td>
-                                            Gloucester
-                                        </td>
-                                        <td class="text-primary">
-                                            $78,615
-                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>

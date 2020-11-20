@@ -3,15 +3,15 @@
         <div class="card card-plain">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header card-header-danger"  style="display: flex; justify-content: space-between;">
+                    <div class="card-header card-header-danger" style="display: flex; justify-content: space-between;">
                         <h4 class="card-title ">Recipe Management</h4>
                         <button class="btn btn-primary btn-sm" style="float: right; margin-top: 4px; font-size: 13px;"
-                        (click)="openDialog()">
-                        <span class="fa fa-plus"></span>
-                        <span>
-                            Add Recipe
-                        </span>
-                    </button>
+                            routerLink="/create-recipe">
+                            <span class="fa fa-plus"></span>
+                            <span>
+                                Add Recipe
+                            </span>
+                        </button>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -29,11 +29,11 @@
                                     <th style="text-align: center;">
                                         Status
                                     </th>
-                                
+
                                     <th style="text-align: center;">
                                         Action
                                     </th>
-                                    
+
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let recipe of recipes">
@@ -51,14 +51,15 @@
                                         </td>
                                         <td style="text-align: center;">
                                             <button class="btn btn-primary fa fa-eye"
-                                            routerLinkActive="router-link-active" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-edit" replaceUrl="true"
+                                                routerLinkActive="router-link-active" style="font-size: 14px;"></button>
+                                            <button [routerLink]="['/edit-recipe', recipe.id]" class="btn btn-primary fa fa-edit" replaceUrl="true"
                                                 queryParamsHandling="merge" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-trash" type="submit" style="font-size: 14px;"></button>
+                                            <button class="btn btn-primary fa fa-trash" type="submit" (click)="onDelete(recipe.id)"
+                                                style="font-size: 14px;"></button>
                                         </td>
-                                     
+
                                     </tr>
-                                    
+
                                 </tbody>
                             </table>
                         </div>

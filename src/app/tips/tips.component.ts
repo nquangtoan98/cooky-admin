@@ -65,4 +65,10 @@ export class TipsComponent implements OnInit {
     this.loadAll(condition);
     console.log(condition);
   }
+
+  onDelete(id){
+    this.tipService.deleteTip(id).subscribe(res => {
+      this.loadAll();
+    })
+  }
 }

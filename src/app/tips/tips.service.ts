@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiUrl, BaseCondition, HttpHeadersOptions, ReturnResult } from 'app/common';
+import { TipDto } from 'model/tip-dto';
+import { Observable } from 'rxjs';
 import { Tip } from './tip.model';
 
 @Injectable({
@@ -26,5 +28,21 @@ export class TipsService {
 
     }
     return this.httpClient.post<ReturnResult<Tip>>(ApiUrl.apiUrl + 'TipsOutside/GetAllTipWithPaging',JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
+  }
+
+  getById(param : number): Observable<any>{
+    return this.httpClient.post(ApiUrl.apiUrl + 'TipsOutside/GetTipById', param);
+  }
+
+  deleteTip(param : number): Observable<any>{
+    return this.httpClient.post(ApiUrl.apiUrl + 'TipsOutside/DeleteTip', param);
+  }
+
+  addNewTip(param: TipDto): Observable<any> {
+    return this.httpClient.post(ApiUrl.apiUrl + 'TipsOutside/AddNewTip', param);
+  }
+  
+  updateTip(param: TipDto): Observable<any> {
+    return this.httpClient.post(ApiUrl.apiUrl + 'TipsOutside/UpdateTip', param);
   }
 }

@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiUrl, BaseCondition, HttpHeadersOptions, ReturnResult } from 'app/common';
+import { RecipeDto } from 'model/recipe-dto';
+import { Observable } from 'rxjs';
 import { Recipe } from './Recipe.model';
 
 @Injectable({
@@ -26,5 +28,21 @@ export class RecipesService {
 
     }
     return this.httpClient.post<ReturnResult<Recipe>>(ApiUrl.apiUrl + 'RecipesOutside/GetAllRecipesWithPaging',JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
+  }
+
+  addNewRecipe(param: RecipeDto): Observable<any> {
+    return this.httpClient.post(ApiUrl.apiUrl + 'RecipesOutside/AddNewRecipe', param);
+  }
+
+  updateRecipe(param: RecipeDto): Observable<any>{
+    return this.httpClient.post(ApiUrl.apiUrl + 'RecipesOutside/UpdateRecipce', param);
+  }
+
+  deleteRecipe(param: number): Observable<any>{
+    return this.httpClient.post(ApiUrl.apiUrl + 'RecipesOutside/DeleteRecipe', param);
+  }
+
+  getRecipeById(param: number): Observable<any> {
+    return this.httpClient.post(ApiUrl.apiUrl + 'RecipesOutside/GetRecipeById', param)
   }
 }

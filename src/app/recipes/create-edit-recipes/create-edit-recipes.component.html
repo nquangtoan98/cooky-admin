@@ -1,0 +1,169 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="card card-plain">
+            <div>
+                <mat-horizontal-stepper [linear]="true" #stepper>
+                    <mat-step [stepControl]="firstFormGroup" errorMessage="Name is required.">
+                        <form [formGroup]="firstFormGroup">
+                            <ng-template matStepLabel>Detail</ng-template>
+                            <h3>Choose avatar of recipe <span style="color:red">*</span></h3>
+                            <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                                (onFileDropped)="uploadFile($event)">
+                                <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                            </div>
+                            <div class="files-list" *ngFor="let file of files;let i=index">
+                                <div style="position: relative;">
+                                    <p>{{ file.name }}</p>
+                                    <button class="delete-file" (click)="deleteAttachment(i)">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                </div>
+                                <div style="text-align: center;">
+                                    <img class="preview" [src]="file.url">
+                                </div>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Recipe Name</mat-label>
+                                    <input formControlName="firstCtrl" matInput placeholder="Ex. Pizza" required
+                                        [(ngModel)]="recipe.name">
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Decription</mat-label>
+                                    <input formControlName="firstCtrl" matInput placeholder="Ex. Very easy" required
+                                        [(ngModel)]="recipe.note">
+                                </mat-form-field>
+                            </div>
+                            <div>
+                                <mat-checkbox color="primary" [checked]="recipe.status == 3" (change)="onChangeCB($event)" >
+                                    Free for all user
+                                </mat-checkbox>
+                            </div>
+                            <div>
+                                <div class="head">Material <span style="color:red">*</span></div>
+                                <div class="form-submit">
+                                    <div class="step" *ngFor="let item  of listMaterial">
+                                        <div class="step-number">{{item.number}}</div>
+                                        <div class="step-content">
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>Name</mat-label>
+                                                <input matInput placeholder="Ex. Beaf" [(ngModel)]="item.name"
+                                                    [ngModelOptions]="{standalone: true}">
+                                            </mat-form-field>
+                                            <mat-form-field class="example-full-width">
+                                                <mat-label>Quantity</mat-label>
+                                                <input matInput placeholder="Ex. 1kg" [(ngModel)]="item.quantity"
+                                                    [ngModelOptions]="{standalone: true}">
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="action" style="margin-top: 25px;">
+                                            <mat-icon style="cursor: pointer;" (click)="onRemoveMaterial(item.number)">
+                                                close
+                                            </mat-icon>
+                                        </div>
+                                    </div>
+                                    <div class="add-btn">
+                                        <button mat-flat-button color="primary" (click)="onAddMaterial()">
+                                            <mat-icon>add</mat-icon>Add material
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="head">Step <span style="color:red">*</span></div>
+                            <div>
+                                <div class="step-box" *ngFor="let item of listStep">
+                                    <div class="step-number">{{item.number}}</div>
+                                    <div class="close-ico" (click)="onRemoveStep(item.number)">
+                                        <mat-icon>close</mat-icon>
+                                    </div>
+                                    <div class="step-direction">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>How to perform</mat-label>
+                                            <textarea matInput [(ngModel)]="item.description"
+                                                [ngModelOptions]="{standalone: true}" required></textarea>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="step-direction">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Note</mat-label>
+                                            <input matInput [(ngModel)]="item.note"
+                                                [ngModelOptions]="{standalone: true}" placeholder="Ex. 30 min to cook">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="stepupload" (click)="fileInput.click()" appDragDrop
+                                        (onFileDropped)="uploadFile($event)">
+                                        <input hidden type="file" #fileInput
+                                            (change)="uploadImgStep($event.target.files, item.number)">
+                                    </div>
+                                    <div style="display: flex;">
+                                        <div class="files-step" *ngFor="let file of item.listIMG;let i=index">
+                                            <div style="position: relative;">
+                                                <button class="delete-file" (click)="deleteImgStep(item.number,i)">
+                                                    <mat-icon>close</mat-icon>
+                                                </button>
+                                            </div>
+                                            <div style="text-align: center;">
+                                                <img class="preview-step" [src]="file.url">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="add-btn">
+                                <button mat-flat-button color="primary" (click)="onAddStep()">
+                                    <mat-icon>add</mat-icon>Add step
+                                </button>
+                            </div>
+
+                            <div>
+                                <button mat-button matStepperNext>Next</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step [stepControl]="secondFormGroup" errorMessage="Address is required.">
+                        <form [formGroup]="secondFormGroup">
+                            <ng-template matStepLabel>Category</ng-template>
+
+                            <div class="row" style="margin: 1rem 2rem;">
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <mat-checkbox color="primary">Check me!</mat-checkbox>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <mat-checkbox color="primary">Check me!</mat-checkbox>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <mat-checkbox color="primary">Check me!</mat-checkbox>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <mat-checkbox color="primary">Check me!</mat-checkbox>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <mat-checkbox color="primary">Check me!</mat-checkbox>
+                                </div>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                    <mat-checkbox color="primary">Check me!</mat-checkbox>
+                                </div>
+                            </div>
+
+                            <div>
+                                <button mat-button matStepperPrevious>Back</button>
+                                <button mat-button matStepperNext>Next</button>
+                            </div>
+                        </form>
+                    </mat-step>
+                    <mat-step>
+                        <ng-template matStepLabel>Done</ng-template>
+                        <p>You are now done.</p>
+                        <div>
+                            <button mat-button matStepperPrevious>Back</button>
+                            <button mat-button (click)="onSave()">Post</button>
+                        </div>
+                    </mat-step>
+                </mat-horizontal-stepper>
+            </div>
+        </div>
+    </div>
+</div>

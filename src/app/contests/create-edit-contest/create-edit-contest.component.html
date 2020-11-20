@@ -1,0 +1,59 @@
+<div class="main-content">
+    <div class="container">
+        <div class="post-box">
+            <h3>Choose image of contest <span style="color:red">*</span></h3>
+            <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                (onFileDropped)="uploadFile($event)">
+                <input hidden type="file" #fileInput [(ngModel)]="fileUpload"
+                    (change)="uploadFile($event.target.files)">
+            </div>
+            <div class="files-list" *ngFor="let file of files;let i=index">
+                <div style="position: relative;">
+                    <p>{{ file.name }}</p>
+                    <button class="delete-file" (click)="deleteAttachment(i)">
+                        <mat-icon>close</mat-icon>
+                    </button>
+                </div>
+                <div style="text-align: center;">
+                    <img class="preview" [src]="file.url">
+                </div>
+            </div>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Contest Name <span style="color:red">*</span></mat-label>
+                    <input matInput placeholder="Ex. Pizza" [(ngModel)]="contest.name">
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field appearance="outline">
+                    <mat-label>Content</mat-label>
+                    <textarea matInput [(ngModel)]="contest.contentContest"></textarea>
+                </mat-form-field>
+            </div>
+            <div style="display: flex;">
+                <div style="width: 45%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Start date</mat-label>
+                        <input matInput [matDatepicker]="picker1" [(ngModel)]="contest.startDate">
+                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                        <mat-datepicker #picker1></mat-datepicker>
+                    </mat-form-field>
+                </div>
+                <div style="width: 10%; text-align: center; margin: auto;">
+                    to
+                </div>
+                <div style="width: 45%;">
+                    <mat-form-field appearance="outline">
+                        <mat-label>End date</mat-label>
+                        <input matInput [matDatepicker]="picker2" [(ngModel)]="contest.endDate"> 
+                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                        <mat-datepicker #picker2></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <button mat-raised-button color="primary" (click)="onSave()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>

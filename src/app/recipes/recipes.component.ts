@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { BaseCondition } from 'app/common';
 import { Recipe } from './Recipe.model';
 import { RecipesService} from './recipes-service.service';
@@ -15,6 +16,7 @@ export class RecipesComponent implements OnInit {
   page = 1;
   pageSize: number;
   totalRecords: number;
+  pageEvent: PageEvent;
   condition: BaseCondition<Recipe> = new BaseCondition<Recipe>();
   constructor(
     private recipeService: RecipesService
@@ -28,12 +30,9 @@ export class RecipesComponent implements OnInit {
       if (result.isSuccess) {
         this.recipes = result.itemList;
         this.totalRecords = result.totalRows;
-        console.log(this.recipes);
         if (condi != undefined) {
           this.pageSize = condi.PageSize;
           this.page = condi.PageIndex;
-          console.log(this.page);
-          
         }
         else {
           this.pageSize = 5;
@@ -64,5 +63,11 @@ export class RecipesComponent implements OnInit {
     
     this.loadAll(condition);
     console.log(condition);
+  }
+
+  onDelete(id){
+    this.recipeService.deleteRecipe(id).subscribe(res=>{
+      this.loadAll();
+    })
   }
 }
