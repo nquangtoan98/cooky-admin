@@ -1,5 +1,54 @@
 <div class="main-content">
     <div class="container-fluid">
-        FAQ
+        <div class="card card-plain">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-danger" style="display: flex; justify-content: space-between;">
+                        <h3 class="card-title ">Feedback</h3>
+                        <!-- <p class="card-category"> Here is a subtitle for this table</p> -->
+
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead class=" text-primary">
+                                    <th style="text-align: center;">
+                                        ID
+                                    </th>
+                                    <th style="text-align: center;">
+                                        User
+                                    </th>
+                                    <th style="text-align: center; max-width: 300px;">
+                                        Feedback
+                                    </th>
+                                </thead>
+                                <tbody>
+                                    <tr >
+                                        <td style="text-align: center;">
+                                            1
+                                        </td>
+                                        <td style="text-align: center;">
+                                            Thanhvc
+                                        </td>
+                                        <td style="text-align: center;">
+                                            Good site
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- <div *ngIf="totalRecords > 0 else nondata" style="margin-left: 37%;">
+                                <nav>
+                                    <ul class="pagination">
+                                        <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [maxSize]="5"
+                                            [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true"
+                                            (pageChange)="loadPages($event, condition.PageSize)"></ngb-pagination>
+                                    </ul>
+                                </nav>
+                            </div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -65,6 +65,15 @@
                                     </tr>
                                 </tbody>
                             </table>
+                            <div *ngIf="totalRecords > 0 else nondata" style="margin-left: 37%;">
+                                <nav>
+                                    <ul class="pagination">
+                                        <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [maxSize]="5"
+                                            [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true"
+                                            (pageChange)="loadPages($event, condition.PageSize)"></ngb-pagination>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>

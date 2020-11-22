@@ -40,12 +40,16 @@
                                             {{tip.name}}
                                         </td>
                                         <td style="text-align: center;">
-                                            {{tip.status}}
+                                            {{(tip.status)===0?'Pending':''}}
+                                            {{(tip.status)===1?'Approved':''}}
+                                            {{(tip.status)===2?'Paid':''}}
+                                            {{(tip.status)===3?'Free':''}}
+                                            {{(tip.status)===4?'Reject':''}}
                                         </td>
 
                                         <td style="text-align: center;">
-                                            <button class="btn btn-primary fa fa-eye"
-                                                routerLinkActive="router-link-active" style="font-size: 14px;"></button>
+                                            <!-- <button class="btn btn-primary fa fa-eye"
+                                                routerLinkActive="router-link-active" style="font-size: 14px;"></button> -->
                                             <button [routerLink]="['/edit-tip',tip.id]"
                                                 class="btn btn-primary fa fa-edit" replaceUrl="true"
                                                 queryParamsHandling="merge" style="font-size: 14px;"></button>
@@ -56,6 +60,15 @@
 
                                 </tbody>
                             </table>
+                            <div *ngIf="totalRecords > 0 else nondata" style="margin-left: 37%;">
+                                <nav>
+                                    <ul class="pagination">
+                                        <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [maxSize]="5"
+                                            [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true"
+                                            (pageChange)="loadPages($event, condition.PageSize)"></ngb-pagination>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>

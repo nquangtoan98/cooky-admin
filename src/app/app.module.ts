@@ -31,6 +31,9 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { TipsComponent } from './tips/tips.component';
 import { CreateEditTipComponent } from './tips/create-edit-tip/create-edit-tip.component';
 import { CreateEditContestComponent } from './contests/create-edit-contest/create-edit-contest.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { UserProfileComponent } from './user-profile/user-profile.component';
+import { ReviewTipComponent } from './tips/review-tip/review-tip.component';
 
 @NgModule({
   imports: [
@@ -54,9 +57,11 @@ import { CreateEditContestComponent } from './contests/create-edit-contest/creat
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
+    // NgbModule,
     AgmCoreModule.forRoot({
       apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-    })
+    }),
+    NgbModule
   ],
   declarations: [
     AppComponent,
@@ -70,6 +75,8 @@ import { CreateEditContestComponent } from './contests/create-edit-contest/creat
     CreateEditRecipesComponent,
     CreateEditTipComponent,
     CreateEditContestComponent,
+    UserProfileComponent,
+    ReviewTipComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

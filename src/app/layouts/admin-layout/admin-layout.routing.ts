@@ -7,6 +7,7 @@ import { HomePageComponent } from 'app/home-page/home-page.component';
 import { CreateEditRecipesComponent } from 'app/recipes/create-edit-recipes/create-edit-recipes.component';
 import { RecipesComponent } from 'app/recipes/recipes.component';
 import { CreateEditTipComponent } from 'app/tips/create-edit-tip/create-edit-tip.component';
+import { ReviewTipComponent } from 'app/tips/review-tip/review-tip.component';
 import { TipsComponent } from 'app/tips/tips.component';
 import { UserProfileComponent } from 'app/user-profile/user-profile.component';
 
@@ -55,6 +56,7 @@ export const AdminLayoutRoutes: Routes = [
     // }
     { path: '', component: HomePageComponent, redirectTo: 'home-page' },
     { path: 'home-page', component: HomePageComponent },
+    { path: 'review-tip', component: ReviewTipComponent },
     { path: 'user-profile', component: UserProfileComponent },
     { path: 'recipes', component: RecipesComponent },
     { path: 'tips', component: TipsComponent },

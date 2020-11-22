@@ -4,9 +4,14 @@ import { StepDTO } from './step-dto';
 export class Recipe {
     userId: number;
     name: string;
-    description: string;
+    // description: string;
     imgUrl: string;
     stepList: string;
+    categoryId: number;
+    note: string;
+    status: number;
+
+
 }
 
 export class RecipeDto {

@@ -1,36 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseCondition } from 'app/common';
-import { User } from 'model/user-dto';
-import { UserService } from './user.service';
+import { Tip } from '../tip.model';
+import { TipsService } from '../tips.service';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.css']
+  selector: 'app-review-tip',
+  templateUrl: './review-tip.component.html',
+  styleUrls: ['./review-tip.component.css']
 })
-export class UserProfileComponent implements OnInit {
-  users: User[] = [];
-  user: User;
+export class ReviewTipComponent implements OnInit {
+
+  tip: Tip;
+  tips: Tip[] = new Array<Tip>()
   page = 1;
   pageSize: number;
   totalRecords: number;
-  condition: BaseCondition<User> = new BaseCondition<User>();
-
+  condition: BaseCondition<Tip> = new BaseCondition<Tip>();
   constructor(
-    private _service: UserService,
+    private tipService: TipsService
+
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadAll()
   }
-  loadAll(condi?: BaseCondition<User>) {
-    this._service.getAllUsersWithPaging(condi).subscribe((result) => {
+  loadAll(condi?: BaseCondition<Tip>) {
+    this.tipService.getAllTipsPendingWithPaging(condi).subscribe((result) => {
       if (result.isSuccess) {
-        this.users = result.itemList;
+        this.tips = result.itemList;
         this.totalRecords = result.totalRows;
+        console.log(this.tips);
         if (condi != undefined) {
           this.pageSize = condi.PageSize;
           this.page = condi.PageIndex;
+          console.log(this.page);
+          
         }
         else {
           this.pageSize = 5;
@@ -52,7 +56,7 @@ export class UserProfileComponent implements OnInit {
   }
   loadPages(page: number, pageSize: number) {
     debugger
-    var condition: BaseCondition<User> = new BaseCondition<User>();
+    var condition: BaseCondition<Tip> = new BaseCondition<Tip>();
     if (this.condition.FilterRuleList) {
       condition.FilterRuleList = this.condition.FilterRuleList;
     }
@@ -63,19 +67,19 @@ export class UserProfileComponent implements OnInit {
     console.log(condition);
   }
 
-  stringToDate(input){
-    const options = {year: 'numeric', month: 'long', day: 'numeric' };
-    const today = new Date(input);
-    return today.toLocaleDateString("en-US", options);
-  }
-  onActive(id){
-    this._service.getById(id).subscribe(res => {
-      this.user = res.item;
-      this._service.updateUser(this.user).subscribe(res => {
-        console.log(res);
+  onDelete(id){
+    this.tipService.deleteTip(id).subscribe(res => {
       this.loadAll();
-
-      })
+    })
+  }
+  onApprove(id){
+    this.tipService.approveTip(id).subscribe(res => {
+      this.loadAll();
+    })
+  }
+  onReject(id){
+    this.tipService.rejectTip(id).subscribe(res => {
+      this.loadAll();
     })
   }
 }

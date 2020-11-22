@@ -4,27 +4,24 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header card-header-danger" style="display: flex; justify-content: space-between;">
-                        <h4 class="card-title ">Recipe Management</h4>
-                        <button class="btn btn-primary btn-sm" style="float: right; margin-top: 4px; font-size: 13px;"
-                            routerLink="/create-recipe">
+                        <h4 class="card-title ">Review User Tips</h4>
+                        <!-- <button class="btn btn-primary btn-sm" style="float: right; margin-top: 4px; font-size: 13px;"
+                            routerLink="/create-tip">
                             <span class="fa fa-plus"></span>
                             <span>
-                                Add Recipe
+                                Add Tip
                             </span>
-                        </button>
+                        </button> -->
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
                                     <th style="text-align: center;">
-                                        ID
+                                        Number
                                     </th>
                                     <th style="text-align: center;">
                                         Name
-                                    </th>
-                                    <th style="text-align: center;">
-                                        Category
                                     </th>
                                     <th style="text-align: center;">
                                         Status
@@ -33,35 +30,29 @@
                                     <th style="text-align: center;">
                                         Action
                                     </th>
-
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let recipe of recipes">
+                                    <tr *ngFor="let tip of tips">
                                         <td style="text-align: center;">
-                                            {{recipe.id}}
+                                            {{tip.id}}
                                         </td>
                                         <td style="text-align: center;">
-                                            {{recipe.name}}
+                                            {{tip.name}}
                                         </td>
                                         <td style="text-align: center;">
-                                            {{recipe.categoryId}}
+                                            {{(tip.status)===0?'Pending':''}}
                                         </td>
-                                        <td style="text-align: center;">
-                                            {{(recipe.status)===0?'Pending':''}}
-                                            {{(recipe.status)===1?'Approved':''}}
-                                            {{(recipe.status)===2?'Paid':''}}
-                                            {{(recipe.status)===3?'Free':''}}
-                                            {{(recipe.status)===4?'Rejected':''}}
-                                        </td>
+
                                         <td style="text-align: center;">
                                             <!-- <button class="btn btn-primary fa fa-eye"
                                                 routerLinkActive="router-link-active" style="font-size: 14px;"></button> -->
-                                            <button [routerLink]="['/edit-recipe', recipe.id]" class="btn btn-primary fa fa-edit" replaceUrl="true"
-                                                queryParamsHandling="merge" style="font-size: 14px;"></button>
-                                            <button class="btn btn-primary fa fa-trash" type="submit" (click)="onDelete(recipe.id)"
-                                                style="font-size: 14px;"></button>
+                         
+                                                <button class="btn btn-primary fa fa-check-square" type="submit" (click)="onApprove(tip.id)"
+                                                style="font-size: 13px;">  Approve</button>
+                                        
+                                            <button class="btn btn-primary fa fa-remove" type="submit" (click)="onReject(tip.id)"
+                                                style="font-size: 13px;">  Reject</button>
                                         </td>
-
                                     </tr>
 
                                 </tbody>

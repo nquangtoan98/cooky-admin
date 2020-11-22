@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 export class ContestService {
 
   constructor(private httpClient : HttpClient) { }
-  public getAllTipsWithPaging(condi? : BaseCondition<ContestDto>) {
+  public getAllContestsWithPaging(condi? : BaseCondition<ContestDto>) {
     var condition = {};
     if (condi != undefined) {
       condition = {

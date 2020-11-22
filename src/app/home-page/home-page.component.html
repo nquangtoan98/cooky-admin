@@ -3,135 +3,74 @@
         <div class="card card-plain">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header card-header-danger">
-                        <h4 class="card-title ">Simple Table</h4>
-                        <p class="card-category"> Here is a subtitle for this table</p>
+                    <div class="card-header card-header-danger" style="display: flex; justify-content: space-between;">
+                        <h4 class="card-title ">Review User Recipe </h4>
+                        <!-- <button class="btn btn-primary btn-sm" style="float: right; margin-top: 4px; font-size: 13px;"
+                            routerLink="/create-recipe">
+                            <span class="fa fa-plus"></span>
+                            <span>
+                                Add Recipe
+                            </span>
+                        </button> -->
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
                             <table class="table">
                                 <thead class=" text-primary">
-                                    <th>
+                                    <th style="text-align: center;">
                                         ID
                                     </th>
-                                    <th>
+                                    <th style="text-align: center;">
                                         Name
                                     </th>
-                                    <th>
-                                        Country
+                                    <th style="text-align: center;">
+                                        Category
                                     </th>
-                                    <th>
-                                        City
+                                    <th style="text-align: center;">
+                                        Status
                                     </th>
-                                    <th>
-                                        Salary
+
+                                    <th style="text-align: center;">
+                                        Action
                                     </th>
+
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            1
+                                    <tr *ngFor="let recipe of recipes">
+                                        <td style="text-align: center;">
+                                            {{recipe.id}}
                                         </td>
-                                        <td>
-                                            Dakota Rice
+                                        <td style="text-align: center;">
+                                            {{recipe.name}}
                                         </td>
-                                        <td>
-                                            Niger
+                                        <td style="text-align: center;">
+                                            {{recipe.categoryId}}
                                         </td>
-                                        <td>
-                                            Oud-Turnhout
+                                        <td style="text-align: center;">
+                                            {{(recipe.status)===0?'Pending':''}}
                                         </td>
-                                        <td class="text-primary">
-                                            $36,738
+                                        <td style="text-align: center;">
+                                        
+                                            <button class="btn btn-primary fa fa-check-square" type="submit" (click)="onApprove(recipe.id)"
+                                                style="font-size: 13px;">  Approve</button>
+                                        
+                                            <button class="btn btn-primary fa fa-remove" type="submit" (click)="onReject(recipe.id)"
+                                                style="font-size: 13px;">  Reject</button>
                                         </td>
+
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            2
-                                        </td>
-                                        <td>
-                                            Minerva Hooper
-                                        </td>
-                                        <td>
-                                            Curaçao
-                                        </td>
-                                        <td>
-                                            Sinaai-Waas
-                                        </td>
-                                        <td class="text-primary">
-                                            $23,789
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            3
-                                        </td>
-                                        <td>
-                                            Sage Rodriguez
-                                        </td>
-                                        <td>
-                                            Netherlands
-                                        </td>
-                                        <td>
-                                            Baileux
-                                        </td>
-                                        <td class="text-primary">
-                                            $56,142
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            4
-                                        </td>
-                                        <td>
-                                            Philip Chaney
-                                        </td>
-                                        <td>
-                                            Korea, South
-                                        </td>
-                                        <td>
-                                            Overland Park
-                                        </td>
-                                        <td class="text-primary">
-                                            $38,735
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            5
-                                        </td>
-                                        <td>
-                                            Doris Greene
-                                        </td>
-                                        <td>
-                                            Malawi
-                                        </td>
-                                        <td>
-                                            Feldkirchen in Kärnten
-                                        </td>
-                                        <td class="text-primary">
-                                            $63,542
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            6
-                                        </td>
-                                        <td>
-                                            Mason Porter
-                                        </td>
-                                        <td>
-                                            Chile
-                                        </td>
-                                        <td>
-                                            Gloucester
-                                        </td>
-                                        <td class="text-primary">
-                                            $78,615
-                                        </td>
-                                    </tr>
+
                                 </tbody>
                             </table>
+                            <div *ngIf="totalRecords > 0 else nondata" style="margin-left: 37%;">
+                                <nav>
+                                    <ul class="pagination">
+                                        <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [maxSize]="5"
+                                            [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true"
+                                            (pageChange)="loadPages($event, condition.PageSize)"></ngb-pagination>
+                                    </ul>
+                                </nav>
+                            </div>
                         </div>
                     </div>
                 </div>

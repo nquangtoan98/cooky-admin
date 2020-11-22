@@ -14,7 +14,7 @@ import { AdminLayoutRoutes } from './admin-layout.routing';
     
   ],
   declarations: [
-    UserProfileComponent,
+    // UserProfileComponent,
   ]
 })
 

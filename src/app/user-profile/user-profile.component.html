@@ -15,123 +15,67 @@
                                       ID
                                   </th>
                                   <th>
-                                      Name
+                                      Username
                                   </th>
                                   <th>
-                                      Country
+                                      Email
                                   </th>
                                   <th>
-                                      City
+                                      Vip status
                                   </th>
                                   <th>
-                                      Salary
+                                      Register Date
+                                  </th>
+                                  <th>
+                                      Expire Date
+                                  </th>
+                                  <th>
+                                      Status Payment
+                                  </th>
+                                  <th>
+                                      Action
                                   </th>
                               </thead>
                               <tbody>
-                                  <tr>
-                                      <td>
-                                          1
-                                      </td>
-                                      <td>
-                                          Dakota Rice
-                                      </td>
-                                      <td>
-                                          Niger
-                                      </td>
-                                      <td>
-                                          Oud-Turnhout
-                                      </td>
-                                      <td class="text-primary">
-                                          $36,738
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          2
-                                      </td>
-                                      <td>
-                                          Minerva Hooper
-                                      </td>
-                                      <td>
-                                          Curaçao
-                                      </td>
-                                      <td>
-                                          Sinaai-Waas
-                                      </td>
-                                      <td class="text-primary">
-                                          $23,789
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          3
-                                      </td>
-                                      <td>
-                                          Sage Rodriguez
-                                      </td>
-                                      <td>
-                                          Netherlands
-                                      </td>
-                                      <td>
-                                          Baileux
-                                      </td>
-                                      <td class="text-primary">
-                                          $56,142
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          4
-                                      </td>
-                                      <td>
-                                          Philip Chaney
-                                      </td>
-                                      <td>
-                                          Korea, South
-                                      </td>
-                                      <td>
-                                          Overland Park
-                                      </td>
-                                      <td class="text-primary">
-                                          $38,735
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          5
-                                      </td>
-                                      <td>
-                                          Doris Greene
-                                      </td>
-                                      <td>
-                                          Malawi
-                                      </td>
-                                      <td>
-                                          Feldkirchen in Kärnten
-                                      </td>
-                                      <td class="text-primary">
-                                          $63,542
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>
-                                          6
-                                      </td>
-                                      <td>
-                                          Mason Porter
-                                      </td>
-                                      <td>
-                                          Chile
-                                      </td>
-                                      <td>
-                                          Gloucester
-                                      </td>
-                                      <td class="text-primary">
-                                          $78,615
-                                      </td>
-                                  </tr>
+                                <tr *ngFor="let item of users">
+                                    <td style="text-align: center;">
+                                        {{item.id}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        {{item.username}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        {{item.email}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        {{(item.isVip === 1)? 'Yes':'No'}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        {{stringToDate(item.registerDate)}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        {{stringToDate(item.expireDate)}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        {{(item.statusPayment===1)?'Monthly Subscription ':''}}
+                                        {{(item.statusPayment===2)?'Yearly Subscription  ':''}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <button (click)="onActive(item.id)" class="btn btn-primary fa fa-check-square"
+                                                type="submit" style="font-size: 13px;">   Active</button>
+                                    </td>
+                                </tr>
                               </tbody>
                           </table>
+                          <div *ngIf="totalRecords > 0 else nondata" style="margin-left: 37%;">
+                            <nav>
+                                <ul class="pagination">
+                                    <ngb-pagination [collectionSize]="totalRecords" [(page)]="page" [maxSize]="5"
+                                        [pageSize]="pageSize" [rotate]="true" [boundaryLinks]="true"
+                                        (pageChange)="loadPages($event, condition.PageSize)"></ngb-pagination>
+                                </ul>
+                            </nav>
+                        </div>
                       </div>
                   </div>
               </div>

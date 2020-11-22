@@ -29,6 +29,24 @@ export class RecipesService {
     }
     return this.httpClient.post<ReturnResult<Recipe>>(ApiUrl.apiUrl + 'RecipesOutside/GetAllRecipesWithPaging',JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
   }
+  public getAllRecipesPendingWithPaging(condi? : BaseCondition<Recipe>) {
+    var condition = {};
+    if (condi != undefined) {
+      condition = {
+        PageIndex : condi.PageIndex,
+        PageSize: 5,
+        FilterRuleList: condi.FilterRuleList
+      }
+    }
+    else {
+      condition = {
+        PageIndex : 1,
+        PageSize: 5
+      }
+
+    }
+    return this.httpClient.post<ReturnResult<Recipe>>(ApiUrl.apiUrl + 'RecipesOutside/GetAllRecipesPendingWithPaging',JSON.stringify(condition), { headers: HttpHeadersOptions.headers });
+  }
 
   addNewRecipe(param: RecipeDto): Observable<any> {
     return this.httpClient.post(ApiUrl.apiUrl + 'RecipesOutside/AddNewRecipe', param);
@@ -44,5 +62,11 @@ export class RecipesService {
 
   getRecipeById(param: number): Observable<any> {
     return this.httpClient.post(ApiUrl.apiUrl + 'RecipesOutside/GetRecipeById', param)
+  }
+  approveRecipe(param: number): Observable<any>{
+    return this.httpClient.post(ApiUrl.apiUrl + 'RecipesOutside/AprroveRecipe', param);
+  } 
+  rejectRecipe(param: number): Observable<any>{
+    return this.httpClient.post(ApiUrl.apiUrl + 'RecipesOutside/RejectRecipe', param);
   }
 }
