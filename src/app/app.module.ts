@@ -34,6 +34,7 @@ import { CreateEditContestComponent } from './contests/create-edit-contest/creat
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReviewTipComponent } from './tips/review-tip/review-tip.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   imports: [
@@ -76,7 +77,8 @@ import { ReviewTipComponent } from './tips/review-tip/review-tip.component';
     CreateEditTipComponent,
     CreateEditContestComponent,
     UserProfileComponent,
-    ReviewTipComponent
+    ReviewTipComponent,
+    LoginComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

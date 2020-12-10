@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { BaseCondition } from 'app/common';
+import { CategoryDto } from 'model/category-dto';
 import { Recipe } from './Recipe.model';
 import { RecipesService} from './recipes-service.service';
 
@@ -11,6 +12,7 @@ import { RecipesService} from './recipes-service.service';
 })
 export class RecipesComponent implements OnInit {
 
+  listCategory: CategoryDto[] = [];
   recipe: Recipe;
   recipes: Recipe[] = new Array<Recipe>()
   page = 1;
@@ -26,6 +28,11 @@ export class RecipesComponent implements OnInit {
     this.loadAll();
   }
   loadAll(condi?: BaseCondition<Recipe>) {
+    this.recipeService.getAllCategory().subscribe(res => {
+      this.listCategory = res.itemList;
+      console.log(this.listCategory);
+      
+    })
     this.recipeService.getAllRecipesWithPaging(condi).subscribe((result) => {
       if (result.isSuccess) {
         this.recipes = result.itemList;

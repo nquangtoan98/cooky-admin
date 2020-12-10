@@ -128,23 +128,8 @@
                             <ng-template matStepLabel>Category</ng-template>
 
                             <div class="row" style="margin: 1rem 2rem;">
-                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <mat-checkbox color="primary">Check me!</mat-checkbox>
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <mat-checkbox color="primary">Check me!</mat-checkbox>
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <mat-checkbox color="primary">Check me!</mat-checkbox>
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <mat-checkbox color="primary">Check me!</mat-checkbox>
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <mat-checkbox color="primary">Check me!</mat-checkbox>
-                                </div>
-                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                    <mat-checkbox color="primary">Check me!</mat-checkbox>
+                                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let item of listCategory">
+                                    <mat-checkbox [value]='item.id' color="primary">{{item.name}}</mat-checkbox>
                                 </div>
                             </div>
 

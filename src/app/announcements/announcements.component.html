@@ -33,15 +33,15 @@
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <tr >
+                                    <tr *ngFor="let item of announcement">
                                         <td style="text-align: center;">
-                                            1
+                                            {{item.id}}
                                         </td>
                                         <td style="text-align: center;">
-                                            Contest announcement 1
+                                            {{item.name}}
                                         </td>
                                         <td style="text-align: center;">
-                                            Abe is winner
+                                            {{item.content}}
                                         </td>
                                         <td style="text-align: center;">
                                             <!-- <button class="btn btn-primary fa fa-eye"

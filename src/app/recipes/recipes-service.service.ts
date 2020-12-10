@@ -69,4 +69,8 @@ export class RecipesService {
   rejectRecipe(param: number): Observable<any>{
     return this.httpClient.post(ApiUrl.apiUrl + 'RecipesOutside/RejectRecipe', param);
   }
+
+  getAllCategory() : Observable<any>{
+    return this.httpClient.get(ApiUrl.apiUrl + 'CategoryOutside/GetAllIconCategory');
+  }
 }

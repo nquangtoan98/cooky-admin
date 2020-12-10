@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
+import { CategoryDto } from 'model/category-dto';
 import { imgDTO } from 'model/img-dto';
 import { MaterialDTO } from 'model/material-dto';
 import { RecipeDto } from 'model/recipe-dto';
@@ -14,6 +15,8 @@ import { RecipesService } from '../recipes-service.service';
   styleUrls: ['./create-edit-recipes.component.css']
 })
 export class CreateEditRecipesComponent implements OnInit {
+
+  listCategory: CategoryDto[] = [];
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   files: imgDTO[] = [];
@@ -29,6 +32,9 @@ export class CreateEditRecipesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this._service.getAllCategory().subscribe(res => {
+      this.listCategory = res.itemList;
+    })
     this.recipe.id = this.activatedRoute.snapshot.params.id ? parseInt(this.activatedRoute.snapshot.params.id) : 0;
     if(this.recipe.id !== 0){
       this._service.getRecipeById(this.recipe.id).subscribe(res => {

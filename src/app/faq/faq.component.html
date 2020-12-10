@@ -23,15 +23,15 @@
                                     </th>
                                 </thead>
                                 <tbody>
-                                    <tr >
+                                    <tr *ngFor="let item of feedback">
                                         <td style="text-align: center;">
-                                            1
+                                            {{item.id}}
                                         </td>
                                         <td style="text-align: center;">
-                                            Thanhvc
+                                            {{item.userId}}
                                         </td>
                                         <td style="text-align: center;">
-                                            Good site
+                                            {{item.feedbackContent}}
                                         </td>
                                     </tr>
                                 </tbody>
