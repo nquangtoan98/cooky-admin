@@ -37,7 +37,8 @@
                                 </mat-form-field>
                             </div>
                             <div>
-                                <mat-checkbox color="primary" [checked]="recipe.status == 3" (change)="onChangeCB($event)" >
+                                <mat-checkbox color="primary" [checked]="recipe.status == 3"
+                                    (change)="onChangeCB($event)">
                                     Free for all user
                                 </mat-checkbox>
                             </div>
@@ -127,11 +128,16 @@
                         <form [formGroup]="secondFormGroup">
                             <ng-template matStepLabel>Category</ng-template>
 
-                            <div class="row" style="margin: 1rem 2rem;">
+                            <!-- <div class="row" style="margin: 1rem 2rem;">
                                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let item of listCategory">
                                     <mat-checkbox [value]='item.id' color="primary">{{item.name}}</mat-checkbox>
                                 </div>
-                            </div>
+                            </div> -->
+
+                            <mat-radio-button class="example-radio-button col-md-4" *ngFor="let item of listCategory"
+                                [value]="item.id" (change)="radioChange($event)">
+                                {{item.name}}
+                            </mat-radio-button>
 
                             <div>
                                 <button mat-button matStepperPrevious>Back</button>

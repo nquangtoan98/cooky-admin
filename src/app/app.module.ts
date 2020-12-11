@@ -35,11 +35,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReviewTipComponent } from './tips/review-tip/review-tip.component';
 import { LoginComponent } from './login/login.component';
+import { CategoryComponent } from './category/category.component';
+import {MatRadioModule} from '@angular/material/radio';
+import { CreateEditCategoryComponent } from './category/create-edit-category/create-edit-category.component';
 
 @NgModule({
   imports: [
     MatNativeDateModule, 
     MatButtonModule,
+    MatRadioModule,
     MatRippleModule,
     MatFormFieldModule,
     MatInputModule,
@@ -78,7 +82,9 @@ import { LoginComponent } from './login/login.component';
     CreateEditContestComponent,
     UserProfileComponent,
     ReviewTipComponent,
-    LoginComponent
+    LoginComponent,
+    CategoryComponent,
+    CreateEditCategoryComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

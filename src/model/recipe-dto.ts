@@ -19,6 +19,7 @@ export class RecipeDto {
     name: string;
     note: string;
     id: number;
+    categoryId: number;
     userid: number;
     contestId: number;
     stepList: Array<StepDTO>;

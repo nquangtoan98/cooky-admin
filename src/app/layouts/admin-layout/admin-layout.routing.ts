@@ -1,5 +1,7 @@
 import { Routes } from '@angular/router';
 import { AnnouncementsComponent } from 'app/announcements/announcements.component';
+import { CategoryComponent } from 'app/category/category.component';
+import { CreateEditCategoryComponent } from 'app/category/create-edit-category/create-edit-category.component';
 import { ContestsComponent } from 'app/contests/contests.component';
 import { CreateEditContestComponent } from 'app/contests/create-edit-contest/create-edit-contest.component';
 import { FaqComponent } from 'app/faq/faq.component';
@@ -69,4 +71,7 @@ export const AdminLayoutRoutes: Routes = [
     { path: 'edit-tip/:id', component: CreateEditTipComponent },
     { path: 'create-contest', component: CreateEditContestComponent },
     { path: 'edit-contest/:id', component: CreateEditContestComponent },
+    { path: 'category', component: CategoryComponent },
+    { path: 'create-category', component: CreateEditCategoryComponent },
+    { path: 'edit-category/:id', component: CreateEditCategoryComponent },
 ];

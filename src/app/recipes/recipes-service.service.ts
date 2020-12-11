@@ -71,6 +71,6 @@ export class RecipesService {
   }
 
   getAllCategory() : Observable<any>{
-    return this.httpClient.get(ApiUrl.apiUrl + 'CategoryOutside/GetAllIconCategory');
+    return this.httpClient.get(ApiUrl.apiUrl + 'CategoryOutside/GetAllNameCategory');
   }
 }

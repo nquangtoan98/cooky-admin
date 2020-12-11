@@ -23,6 +23,7 @@ export class CreateEditRecipesComponent implements OnInit {
   listStep: StepDTO[] = [];
   listMaterial: MaterialDTO[] = [];
   recipe: RecipeDto = new RecipeDto();
+  categoryId;
 
   constructor(
     private _formBuilder: FormBuilder,
@@ -79,6 +80,10 @@ export class CreateEditRecipesComponent implements OnInit {
     let img = new imgDTO();
     img.name = event.name;
     img.url = this.sanitization.bypassSecurityTrustUrl(URL.createObjectURL(event[0]));
+  }
+
+  radioChange(event){
+    this.categoryId = event.value;
   }
 
   getURL(url) {
@@ -155,6 +160,7 @@ export class CreateEditRecipesComponent implements OnInit {
   }
 
   onSave() {
+    this.recipe.categoryId = this.categoryId;
     this.recipe.stepList = this.formatListStep(this.listStep);
     this.recipe.materialList = this.formatListMaterial(this.listMaterial);
     if(this.recipe.id == 0){
