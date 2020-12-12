@@ -19,6 +19,10 @@ export class CategoryService {
     return this.httpClient.get(ApiUrl.apiUrl + "CategoryOutside/GetAllIconCategory");
   }
 
+  getById(param: number): Observable<any>{
+    return this.httpClient.post(ApiUrl.apiUrl + "CategoryOutside/GetCategoryById", param);
+  }
+
   deleteCategory(param: number): Observable<any>{
     return this.httpClient.post(ApiUrl.apiUrl + "CategoryOutside/DeleteCategory", param);
   }

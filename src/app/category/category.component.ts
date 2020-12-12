@@ -9,21 +9,32 @@ import { CategoryService } from './category.service';
 })
 export class CategoryComponent implements OnInit {
 
-  category : CategoryDto[] = [];
+  category: CategoryDto[] = [];
 
   constructor(
     private _service: CategoryService
   ) { }
 
   ngOnInit(): void {
-    this._service.getAllNameCategory().subscribe(res => {
+    this.load();
+  }
+
+  load(){
+    this._service.getAllIconCategory().subscribe(res => {
       this.category = res.itemList;
+
+      this.category.forEach(item => {
+        if (!item.icon) {
+          item.icon = '../../assets/img/img-not-found.png';
+        }
+        item.icon = "https://localhost:44357/" + item.icon;
+      })
     })
   }
 
   onDelete(id) {
     this._service.deleteCategory(id).subscribe(res => {
-
+      this.load();
     })
   }
 

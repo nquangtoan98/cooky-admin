@@ -8,6 +8,7 @@ import { imgDTO } from 'model/img-dto';
 import { MaterialDTO } from 'model/material-dto';
 import { RecipeDto } from 'model/recipe-dto';
 import { StepDTO } from 'model/step-dto';
+import { UserLogin } from 'model/user-dto';
 import { RecipesService } from '../recipes-service.service';
 
 @Component({
@@ -17,6 +18,7 @@ import { RecipesService } from '../recipes-service.service';
 })
 export class CreateEditRecipesComponent implements OnInit {
 
+  userLogin: UserLogin = new UserLogin();
   listCategory: CategoryDto[] = [];
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
@@ -39,6 +41,7 @@ export class CreateEditRecipesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.userLogin = JSON.parse(localStorage.getItem('currentUser'));
     this._service.getAllCategory().subscribe(res => {
       this.listCategory = res.itemList;
     })
@@ -46,10 +49,15 @@ export class CreateEditRecipesComponent implements OnInit {
     if(this.recipe.id !== 0){
       this._service.getRecipeById(this.recipe.id).subscribe(res => {
         this.recipe = res.item;
+        let img = new imgDTO();
+        img.url = "https://localhost:44357/" + res.item.imageBackgroundUrl;
+        this.files.push(img);
         this.listStep = this.recipe.stepList;
         this.listStep.forEach(item => item.number = parseInt(item.name));
         this.listMaterial = this.recipe.materialList;
-        this.listMaterial.forEach(item => item.number = parseInt(item.name));
+        for(let i = 0; i < this.listMaterial.length; i++){
+          this.listMaterial[i].number = i+1;
+        }
       })
     } else {
       this.recipe.status = 2;
@@ -166,6 +174,7 @@ export class CreateEditRecipesComponent implements OnInit {
   }
 
   onSave() {
+    this.recipe.userid = this.userLogin.id;
     this.recipe.categoryId = this.categoryId;
     this.recipe.stepList = this.formatListStep(this.listStep);
     this.recipe.materialList = this.formatListMaterial(this.listMaterial);
@@ -174,7 +183,6 @@ export class CreateEditRecipesComponent implements OnInit {
     }, (error) => {
       console.log(error);
     });
-    
   }
   
   public uploadAvtRs = (files) => {
