@@ -8,8 +8,8 @@
                             <ng-template matStepLabel>Detail</ng-template>
                             <h3>Choose avatar of recipe <span style="color:red">*</span></h3>
                             <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
-                                (onFileDropped)="uploadFile($event)">
-                                <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                                (onFileDropped)="uploadAvtRs($event)">
+                                <input hidden type="file" #fileInput (change)="uploadAvtRs($event.target.files)">
                             </div>
                             <div class="files-list" *ngFor="let file of files;let i=index">
                                 <div style="position: relative;">
@@ -95,9 +95,9 @@
                                         </mat-form-field>
                                     </div>
                                     <div class="stepupload" (click)="fileInput.click()" appDragDrop
-                                        (onFileDropped)="uploadFile($event)">
+                                        (onFileDropped)="uploadImgSt($event)">
                                         <input hidden type="file" #fileInput
-                                            (change)="uploadImgStep($event.target.files, item.number)">
+                                            (change)="uploadImgSt($event.target.files, item.number)">
                                     </div>
                                     <div style="display: flex;">
                                         <div class="files-step" *ngFor="let file of item.listIMG;let i=index">

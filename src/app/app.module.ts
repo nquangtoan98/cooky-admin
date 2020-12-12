@@ -36,12 +36,12 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReviewTipComponent } from './tips/review-tip/review-tip.component';
 import { LoginComponent } from './login/login.component';
 import { CategoryComponent } from './category/category.component';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 import { CreateEditCategoryComponent } from './category/create-edit-category/create-edit-category.component';
 
 @NgModule({
   imports: [
-    MatNativeDateModule, 
+    MatNativeDateModule,
     MatButtonModule,
     MatRadioModule,
     MatRippleModule,

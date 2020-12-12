@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
@@ -24,12 +25,17 @@ export class CreateEditRecipesComponent implements OnInit {
   listMaterial: MaterialDTO[] = [];
   recipe: RecipeDto = new RecipeDto();
   categoryId;
+  public progress: number;
+  public message: string;
+  public response: string;
+  @Output() public onUploadFinished = new EventEmitter();
 
   constructor(
     private _formBuilder: FormBuilder,
     private sanitization: DomSanitizer,
     private _service: RecipesService,
-    private activatedRoute : ActivatedRoute
+    private activatedRoute : ActivatedRoute,
+    private http: HttpClient
   ) { }
 
   ngOnInit(): void {
@@ -61,8 +67,8 @@ export class CreateEditRecipesComponent implements OnInit {
     ]
 
     this.listStep = [
-      { name: "1", number: 1, description: '', note: '', imgUrl: '' },
-      { name: "2", number: 2, description: '', note: '', imgUrl: '' },
+      { name: "1", number: 0, description: '', note: '', imgUrl: '' },
+      { name: "2", number: 1, description: '', note: '', imgUrl: '' },
     ]
   }
 
@@ -163,19 +169,57 @@ export class CreateEditRecipesComponent implements OnInit {
     this.recipe.categoryId = this.categoryId;
     this.recipe.stepList = this.formatListStep(this.listStep);
     this.recipe.materialList = this.formatListMaterial(this.listMaterial);
-    if(this.recipe.id == 0){
-      this._service.addNewRecipe(this.recipe).subscribe((response) => {
-        console.log(response);
-      }, (error) => {
-        console.log(error);
-      });
-    } else {
-      this._service.updateRecipe(this.recipe).subscribe((response) => {
-        console.log(response);
-      }, (error) => {
-        console.log(error);
-      });
-    }
+    this._service.addNewRecipe(this.recipe).subscribe((response) => {
+      console.log(response);
+    }, (error) => {
+      console.log(error);
+    });
     
+  }
+  
+  public uploadAvtRs = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+
+    this.http.post('https://localhost:44357/api/RecipesOutside/Upload', formData)
+      .subscribe((response) => {
+        this.response = JSON.parse(JSON.stringify(response)).dbPath;
+        console.log(this.response);
+        this.recipe.imageBackgroundUrl = this.response;
+        let img = new imgDTO();
+        img.url = "https://localhost:44357/" + this.response;
+        console.log(img)
+        this.files.push(img);
+      });
+  }
+
+  public uploadImgSt = (files, element) => {
+    console.log(element);
+    if (files.length === 0) {
+      return;
+    }
+
+    let fileToUpload = <File>files[0];
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+
+    this.http.post('https://localhost:44357/api/RecipesOutside/Upload', formData)
+      .subscribe((response) => {
+        let path = JSON.parse(JSON.stringify(response)).dbPath;
+        console.log(path);
+        this.listStep[element].imgUrl = "https://localhost:44357/" + path;
+        console.log(this.listStep);
+        let img = new imgDTO();
+        img.url = this.listStep[element].imgUrl;
+        this.files.push(img);
+      });
+  }
+
+  public uploadFinished = (event) => {
+    this.response = event;
   }
 }
